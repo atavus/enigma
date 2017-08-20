@@ -4,7 +4,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.NumberFormat;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
@@ -17,7 +16,7 @@ import org.atavus.enigma.Enigma;
 import org.atavus.enigma.Machine;
 import org.atavus.enigma.Machines.Type;
 
-public class FindCode extends Thread {
+public class FindM3Code extends Thread {
 
     private char[] input;
 
@@ -28,7 +27,7 @@ public class FindCode extends Thread {
 
     static {
         try {
-            outs = new PrintStream(new FileOutputStream("output.txt"));
+            outs = new PrintStream(new FileOutputStream("m3.output.txt"));
         } catch (IOException e) {
             outs = System.out;
         }
@@ -41,12 +40,12 @@ public class FindCode extends Thread {
         outs.flush();
         Thread[] threads = new Thread[Integer.parseInt(args[0])];
         for (int t = 0; t < threads.length; t++) {
-            threads[t] = new FindCode(args[1]);
+            threads[t] = new FindM3Code(args[1]);
             threads[t].start();
         }
     }
 
-    public FindCode(String input) {
+    public FindM3Code(String input) {
         this.input = input.toCharArray();
     }
 
@@ -66,7 +65,7 @@ public class FindCode extends Thread {
             char[] output = new char[input.length];
             Enigma machine = new Enigma();
             machine.debug(false);
-            Machine config = new Machine(Type.ENIGMA);
+            Machine config = new Machine(Type.M3);
             while (true) {
                 config.randomise(random);
                 machine.initialise(config);
@@ -120,9 +119,6 @@ public class FindCode extends Thread {
                     Machine config) {
         out.format("%s\n", config);
         out.format("%s\n", outwords);
-        out.format("%s\n", order);
-        out.format("%s\n", Arrays.toString(alphabet));
-        out.format("%s\n", Arrays.toString(dist));
         out.println();
         out.flush();
     }

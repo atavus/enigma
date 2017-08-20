@@ -3,7 +3,7 @@ package org.atavus.enigma;
 public class Machines {
 
     public static enum Type {
-        COMMERCIAL, ROCKET, SWISSK, ENIGMA
+        COMMERCIAL, ROCKET, SWISSK, ENIGMA, M3
     }
 
     public static enum Roman {
@@ -36,6 +36,15 @@ public class Machines {
                                     "FKQHTLXOCBJSPDZRAMEWNIUYGVZM".toCharArray(), // Rotor # VIII , 1939 , M3 & M4 Naval (1942)
                                     "LEYJVCNIXWPBQMDRTAKZGFUHOS".toCharArray(), // Rotor # Beta , 1941 , M4 R2
                                     "FSOKANUERHMBTIYCWLQPZXVGJD".toCharArray(), // Rotor # Gamma, 1941 , M4 R2
+                    }, { //
+                                    "EKMFLGDQVZNTOWYHXUSPAIBRCJQ".toCharArray(), // Rotor # I    , 1930 , Enigma I
+                                    "AJDKSIRUXBLHWTMCQGZNPYFVOEE".toCharArray(), // Rotor # II   , 1930 , Enigma I
+                                    "BDFHJLCPRTXVZNYEIWGAKMUSQOV".toCharArray(), // Rotor # III  , 1930 , Enigma I
+                                    "ESOVPZJAYQUIRHXLNFTGKDCMWBJ".toCharArray(), // Rotor # IV   , 1938 , M3 Army
+                                    "VZBRGITYUPSDNHLXAWMJQOFECKZ".toCharArray(), // Rotor # V    , 1938 , M3 Army
+                                    "JPGVOUMFYQBENHZRDKASXLICTWZM".toCharArray(), // Rotor # VI   , 1939 , M3 & M4 Naval (1942)
+                                    "NZJHGRCXMYSWBOUFAIVLPEKQDTZM".toCharArray(), // Rotor # VII  , 1939 , M3 & M4 Naval (1942)
+                                    "FKQHTLXOCBJSPDZRAMEWNIUYGVZM".toCharArray(), // Rotor # VIII , 1939 , M3 & M4 Naval (1942)
                     } };
 
     private static final char[][][] entry_wheel_wiring = { //
@@ -45,6 +54,8 @@ public class Machines {
                                     "QWERTZUIOASDFGHJKPYXCVBNML".toCharArray(), // Rotor # ETW  , 1941 , German Railway (Rocket)
                     }, { //
                                     "QWERTZUIOASDFGHJKPYXCVBNML".toCharArray(), // Rotor # ETW-K, 1939 , Swiss K
+                    }, { //
+                                    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray(), // Rotor # ETW Enigma I
                     }, { //
                                     "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray(), // Rotor # ETW Enigma I
                     } };
@@ -58,6 +69,11 @@ public class Machines {
                                     "IMETCGFRAYSQBZXWLHKDVUPOJN".toCharArray(), // Rotor # UKW-K, 1939 , Swiss K
                     }, { //
                                     "EJMZALYXVBWFCRQUONTSPIKHGD".toCharArray(), // Rotor # Reflector A
+                                    "YRUHQSLDPXNGOKMIEBFZCWVJAT".toCharArray(), // Rotor # Reflector B
+                                    "FVPJIAOYEDRZXWGCTKUQSBNMHL".toCharArray(), // Rotor # Reflector C
+                                    "ENKQAUYWJICOPBLMDXZVFTHRGS".toCharArray(), // Rotor # Reflector B Thin 1940 M4 R1 (M3 + Thin)
+                                    "RDOBJNTKVEHMLFCWZAXGYIPSUQ".toCharArray() // Rotor # Reflector C Thin 1940 M4 R1 (M3 + Thin)
+                    }, { //
                                     "YRUHQSLDPXNGOKMIEBFZCWVJAT".toCharArray(), // Rotor # Reflector B
                                     "FVPJIAOYEDRZXWGCTKUQSBNMHL".toCharArray(), // Rotor # Reflector C
                                     "ENKQAUYWJICOPBLMDXZVFTHRGS".toCharArray(), // Rotor # Reflector B Thin 1940 M4 R1 (M3 + Thin)
