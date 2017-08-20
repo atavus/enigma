@@ -12,7 +12,7 @@ public class EnigmaTest {
     public void testEncipher() {
 
         Enigma machine = new Enigma();
-        Configuration config = new Configuration(Machines.Type.ENIGMA, 1, 0, "IV II V | GMY | DN GR IS KC QX TM PV HY FW BJ |");
+        Machine config = new Machine(Machines.Type.ENIGMA, 1, 0, "IV II V | GMY | DN GR IS KC QX TM PV HY FW BJ |");
         machine.initialise(config);
         machine.setOffsets("DHO");
         System.out.println(machine);
@@ -37,7 +37,7 @@ public class EnigmaTest {
         // NQVLT YQFSE WWGJZ GQHVS EIXIM YKCNW IEBMB ATPPZ TDVCU PKAY-
 
         Enigma machine = new Enigma();
-        Configuration config = new Configuration(Machines.Type.ENIGMA, 1, 0, "IV II V | GMY | DN GR IS KC QX TM PV HY FW BJ |");
+        Machine config = new Machine(Machines.Type.ENIGMA, 1, 0, "IV II V | GMY | DN GR IS KC QX TM PV HY FW BJ |");
         machine.initialise(config);
         machine.setOffsets("DHO");
         System.out.println(machine);

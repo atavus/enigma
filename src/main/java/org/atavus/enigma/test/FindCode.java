@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
-import org.atavus.enigma.Configuration;
+import org.atavus.enigma.Machine;
 import org.atavus.enigma.Enigma;
 import org.atavus.enigma.Machines.Type;
 
@@ -62,7 +62,7 @@ public class FindCode extends Thread {
             char[] output = new char[input.length];
             Enigma machine = new Enigma();
             machine.debug(false);
-            Configuration config = new Configuration(Type.ENIGMA);
+            Machine config = new Machine(Type.ENIGMA);
             while (true) {
                 config.randomise(random);
                 machine.initialise(config);
@@ -113,7 +113,7 @@ public class FindCode extends Thread {
     }
 
     private static synchronized void report(PrintStream out, String inwords, String outwords, String order, char[] alphabet, int[] dist,
-                    Configuration config) {
+                    Machine config) {
         out.format("%s\n", config);
         out.format("%s\n", inwords);
         out.format("%s\n", outwords);

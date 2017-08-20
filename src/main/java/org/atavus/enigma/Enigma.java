@@ -2,7 +2,7 @@ package org.atavus.enigma;
 
 public class Enigma {
 
-    private Configuration config;
+    private Machine config;
 
     private boolean debug;
 
@@ -10,7 +10,7 @@ public class Enigma {
         this.debug = debug;
     }
 
-    public void initialise(final Configuration settings) {
+    public void initialise(final Machine settings) {
         config = settings;
         config.build();
     }

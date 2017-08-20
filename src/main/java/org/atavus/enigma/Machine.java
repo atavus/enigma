@@ -6,7 +6,7 @@ import java.util.Scanner;
 import org.atavus.enigma.Machines.Roman;
 import org.atavus.enigma.Machines.Type;
 
-public class Configuration {
+public class Machine {
 
     private int reflector_number = 0, etw_number = 0;
     private int rotor1_number = 0, rotor2_number = 1, rotor3_number = 2;
@@ -25,11 +25,11 @@ public class Configuration {
 
     public final Machines.Type type;
 
-    public Configuration(final Machines.Type type) {
+    public Machine(final Machines.Type type) {
         this.type = type;
     }
 
-    public Configuration(final Type type, final int reflector_number, final int etw_number, final String config_string) {
+    public Machine(final Type type, final int reflector_number, final int etw_number, final String config_string) {
         this.type = type;
         try (Scanner scanner = new Scanner(config_string);) {
             if (scanner.hasNextLine()) {
@@ -49,7 +49,7 @@ public class Configuration {
         }
     }
 
-    public Configuration(final Machines.Type type, final Random random) {
+    public Machine(final Machines.Type type, final Random random) {
         this.type = type;
         randomise(random);
     }
