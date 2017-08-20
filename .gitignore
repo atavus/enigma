@@ -1,0 +1,6 @@
+out*.txt
+.classpath
+.settings/
+.project
+target/
+run
