@@ -9,6 +9,64 @@ import org.junit.Test;
 public class EnigmaTest {
 
     @Test
+    public void testRotor1() {
+        // 01234567890123456789012345
+        // ABCDEFGHIJKLMNOPQRSTUVWXYZ
+        // EKMFLGDQVZNTOWYHXUSPAIBRCJ
+        // EKMFLGDQVZNTOWYHXUSPAIBRCJ
+        // ABCDEFGHIJKLMNOPQRSTUVWXYZ
+        // 01234567890123456789012345
+        // A(0) -> E(4)
+        // A'(0) -> U'(20)
+        Rotor1 rotor = new Rotor1("EKMFLGDQVZNTOWYHXUSPAIBRCJQ".toCharArray());
+        Wiring wiring = new Wiring() {
+
+            @Override
+            public void forward(int pin) {
+                assertEquals(4, pin);
+            }
+
+            @Override
+            public void reverse(int pin) {
+                assertEquals(20, pin);
+            }
+        };
+        rotor.setOutput(wiring);
+        rotor.setInput(wiring);
+        rotor.forward(0);
+        rotor.reverse(0);
+    }
+
+    @Test
+    public void testRotor1Ring1() {
+        // 01234567890123456789012345
+        // ABCDEFGHIJKLMNOPQRSTUVWXYZ
+        // EKMFLGDQVZNTOWYHXUSPAIBRCJ
+        // ABCDEFGHIJKLMNOPQRSTUVWXYZ
+        // 01234567890123456789012345
+        // A(0) +1 = B(0) -> K(10) -1 = J(9)
+        // A(0) -1 = Z(0) -> J(9) +1 = K(10)
+        Rotor1 rotor = new Rotor1("EKMFLGDQVZNTOWYHXUSPAIBRCJQ".toCharArray());
+        Wiring wiring = new Wiring() {
+
+            @Override
+            public void forward(int pin) {
+                assertEquals(10, pin);
+            }
+
+            @Override
+            public void reverse(int pin) {
+                assertEquals(10, pin);
+            }
+        };
+        rotor.setOutput(wiring);
+        rotor.setInput(wiring);
+        rotor.setRing('B');
+        rotor.forward(0);
+        rotor.reverse(0);
+    }
+
+    @Test
     public void testEncipher() {
 
         Enigma machine = new Enigma();

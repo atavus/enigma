@@ -266,6 +266,9 @@ public class Machine {
         rotor3.setOffset(ring3_offset);
     }
 
+    public void initialise() {
+    }
+
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();
@@ -342,6 +345,14 @@ public class Machine {
 
     public Rotor etw() {
         return etw;
+    }
+
+    public void advance() {
+        if (rotor3.advance()) {
+            if (rotor2.advance()) {
+                rotor1.advance();
+            }
+        }
     }
 
 }

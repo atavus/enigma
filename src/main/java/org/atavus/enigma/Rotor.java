@@ -1,53 +1,12 @@
 package org.atavus.enigma;
 
-public class Rotor implements Wiring, Cloneable {
+public interface Rotor extends Wiring {
 
-    private Wiring input;
-    private Wiring output;
+    Rotor clone();
 
-    private int[] forward = new int[26];
-    private int[] reverse = new int[26];
+    void setDebug(boolean debug);
 
-    private int ring;
-
-    private int offset;
-
-    private int notch1 = 26;
-    private int notch2 = 26;
-
-    private boolean debug;
-
-    @Override
-    public Rotor clone() {
-        try {
-            return (Rotor) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalStateException("Failed to clone", e);
-        }
-    }
-
-    public void setDebug(boolean debug) {
-        this.debug = debug;
-    }
-
-    public Rotor(final char[] wiring) {
-        for (int pin = 0; pin < 26; pin++) {
-            forward[pin] = wiring[pin] - 'A';
-            reverse[wiring[pin] - 'A'] = pin;
-        }
-        if (wiring.length > 26) {
-            notch1 = wiring[26] - 'A';
-        }
-        if (wiring.length > 27) {
-            notch2 = wiring[27] - 'A';
-        }
-    }
-
-    public boolean advance() {
-        boolean turnover = (offset == notch1 || offset == notch2);
-        offset = (offset + 1) % 26;
-        return turnover;
-    }
+    boolean advance();
 
     /**
      * Ringstellung
@@ -55,9 +14,7 @@ public class Rotor implements Wiring, Cloneable {
      * @param ring
      *            1=A, 2=B, ...
      */
-    public void setRing(final int ring) {
-        this.ring = ring - 1;
-    }
+    void setRing(int ring);
 
     /**
      * Ringstellung
@@ -65,13 +22,9 @@ public class Rotor implements Wiring, Cloneable {
      * @param ring
      *            1=A, 2=B, ...
      */
-    public void setRing(final char ring) {
-        this.ring = ring - 'A';
-    }
+    void setRing(char ring);
 
-    public char getOffset() {
-        return (char) (offset + 'A');
-    }
+    char getOffset();
 
     /**
      * Grundstellung
@@ -79,9 +32,7 @@ public class Rotor implements Wiring, Cloneable {
      * @param offset
      *            1=A, 2=B, ...
      */
-    public void setOffset(final int offset) {
-        this.offset = offset - 1;
-    }
+    void setOffset(int offset);
 
     /**
      * Grundstellung
@@ -89,50 +40,10 @@ public class Rotor implements Wiring, Cloneable {
      * @param offset
      *            1=A, 2=B, ...
      */
-    public void setOffset(final char offset) {
-        this.offset = offset - 'A';
-    }
+    void setOffset(char offset);
 
-    public void setInput(final Wiring input) {
-        if (input == this)
-            throw new IllegalArgumentException("Cannot set input to self");
-        this.input = input;
-    }
+    void setInput(Wiring input);
 
-    public void setOutput(final Wiring output) {
-        if (output == this)
-            throw new IllegalArgumentException("Cannot set output to self");
-        this.output = output;
-    }
-
-    @Override
-    public void forward(final int pin) {
-        int out = (forward[(pin + 52 - ring + offset) % 26] + 52 - offset + ring) % 26;
-        if (debug)
-            System.out.format("Rotor forward %c -> %c\n", (pin + 'A'), (out + 'A'));
-        output.forward(out);
-    }
-
-    @Override
-    public void reverse(final int pin) {
-        int out = (reverse[(pin + 52 - ring + offset) % 26] + 52 - offset + ring) % 26;
-        if (debug)
-            System.out.format("Rotor reverse %c -> %c\n", (pin + 'A'), (out + 'A'));
-        input.reverse(out);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder out = new StringBuilder();
-        out.append(String.format("%c", (ring + 'A')));
-        for (int pin : forward) {
-            out.append(" ");
-            out.append((char) (pin + 'A'));
-        }
-        out.append(String.format(" %c", (offset + 'A')));
-        out.append(String.format(" %c", (notch1 + 'A')));
-        out.append(String.format(" %c", (notch2 + 'A')));
-        return out.toString();
-    }
+    void setOutput(Wiring output);
 
 }

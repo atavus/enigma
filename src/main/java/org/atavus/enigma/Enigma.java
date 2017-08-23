@@ -13,6 +13,7 @@ public class Enigma {
     public void initialise(final Machine settings) {
         config = settings;
         config.build();
+        config.initialise();
     }
 
     public void reset() {
@@ -30,11 +31,7 @@ public class Enigma {
             if (original[ofs] == ' ') {
                 out[ofs] = ' ';
             } else {
-                if (config.rotor3().advance()) {
-                    if (config.rotor2().advance()) {
-                        config.rotor1().advance();
-                    }
-                }
+                config.advance();
                 out[ofs] = config.kbd().encode(original[ofs]);
             }
             if (debug)
@@ -57,10 +54,12 @@ public class Enigma {
 
     public void setOffsets(String offsets) {
         config.setOffsets(offsets);
+        config.initialise();
     }
 
     public void setOffsets(char... offsets) {
         config.setOffsets(offsets);
+        config.initialise();
     }
 
 }

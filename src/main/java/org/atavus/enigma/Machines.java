@@ -90,13 +90,17 @@ public class Machines {
     private Reflector[][] reflectors = new Reflector[reflector_wiring.length][];
     private ETW[][] etws = new ETW[entry_wheel_wiring.length][];
 
+    private ThreadLocal<Rotor[][]> thread_rotors = ThreadLocal.withInitial(() -> new Rotor[rotor_wiring.length][]);
+    private ThreadLocal<Reflector[][]> thread_reflectors = ThreadLocal.withInitial(() -> new Reflector[reflector_wiring.length][]);
+    private ThreadLocal<ETW[][]> thread_etws = ThreadLocal.withInitial(() -> new ETW[entry_wheel_wiring.length][]);
+
     public Machines() {
 
         // create the rotors
         for (int mc = 0; mc < rotor_wiring.length; mc++) {
             rotors[mc] = new Rotor[rotor_wiring[mc].length];
             for (int rotor = 0; rotor < rotor_wiring[mc].length; rotor++) {
-                rotors[mc][rotor] = new Rotor(rotor_wiring[mc][rotor]);
+                rotors[mc][rotor] = new Rotor2(rotor_wiring[mc][rotor]);
             }
         }
 
@@ -123,7 +127,12 @@ public class Machines {
     }
 
     public Reflector getReflector(Type machine, int reflector_number) {
-        return reflectors[machine.ordinal()][reflector_number].clone();
+        Reflector[][] ref = thread_reflectors.get();
+        if (ref[machine.ordinal()] == null)
+            ref[machine.ordinal()] = new Reflector[reflector_wiring[machine.ordinal()].length];
+        if (ref[machine.ordinal()][reflector_number] == null)
+            ref[machine.ordinal()][reflector_number] = reflectors[machine.ordinal()][reflector_number].clone();
+        return ref[machine.ordinal()][reflector_number];
     }
 
     public int countRotors(Type machine) {
@@ -131,7 +140,12 @@ public class Machines {
     }
 
     public Rotor getRotor(Type machine, int rotor_number) {
-        return rotors[machine.ordinal()][rotor_number].clone();
+        Rotor[][] ref = thread_rotors.get();
+        if (ref[machine.ordinal()] == null)
+            ref[machine.ordinal()] = new Rotor[rotor_wiring[machine.ordinal()].length];
+        if (ref[machine.ordinal()][rotor_number] == null)
+            ref[machine.ordinal()][rotor_number] = rotors[machine.ordinal()][rotor_number].clone();
+        return ref[machine.ordinal()][rotor_number];
     }
 
     public int countETWs(Type machine) {
@@ -139,7 +153,12 @@ public class Machines {
     }
 
     public ETW getETW(Type machine, int etw_number) {
-        return etws[machine.ordinal()][etw_number].clone();
+        ETW[][] ref = thread_etws.get();
+        if (ref[machine.ordinal()] == null)
+            ref[machine.ordinal()] = new ETW[entry_wheel_wiring[machine.ordinal()].length];
+        if (ref[machine.ordinal()][etw_number] == null)
+            ref[machine.ordinal()][etw_number] = etws[machine.ordinal()][etw_number].clone();
+        return ref[machine.ordinal()][etw_number];
     }
 
 }
